@@ -1,0 +1,7 @@
+applications:
+- name: reactive-poller
+  path: target/reactive-poller-0.0.1-SNAPSHOT.jar
+  services:
+  - poller-redis
+  env:
+    _JAVA_OPTIONS: -Duser.timezone=Asia/Tokyo -Duser.language=ja -Duser.country=JP -Djava.security.egd=file:/dev/./urandom -Dio.lettuce.core.epoll=false

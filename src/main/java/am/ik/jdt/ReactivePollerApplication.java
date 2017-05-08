@@ -23,7 +23,6 @@ public class ReactivePollerApplication {
 		if (connectionFactory.getPassword() != null) {
 			builder.withPassword(connectionFactory.getPassword());
 		}
-		return RedisClient.create(connectionFactory.getClientResources(),
-				builder.build());
+		return RedisClient.create(builder.build());
 	}
 }
