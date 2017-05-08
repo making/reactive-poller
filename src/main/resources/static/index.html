@@ -44,18 +44,9 @@
     </form>
 </div>
 <div id="poll3"></div>
-<p>
-    Current Users: <span id="user"></span>
-</p>
 </body>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script>
-    var user = document.getElementById('user');
-    var userEventSource = new EventSource('/user');
-    userEventSource.onmessage = function (e) {
-        user.innerText = e.data;
-    };
-
     var infos = [{
         question: 'Q1',
         answers: ['A1', 'A2', 'A3', 'A4']

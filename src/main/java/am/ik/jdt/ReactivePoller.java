@@ -22,12 +22,9 @@ public class ReactivePoller {
 	private static final Logger log = LoggerFactory.getLogger(ReactivePoller.class);
 	private final RedisClient redisClient;
 	private StatefulRedisConnection<String, String> dataConnection;
-	private StatefulRedisConnection<String, String> userConnection;
+	private StatefulRedisPubSubConnection<String, String> dataConnectionPub;
 	private StatefulRedisPubSubConnection<String, String> dataConnectionSub;
-	private StatefulRedisPubSubConnection<String, String> userConnectionSub;
-	private StatefulRedisPubSubConnection<String, String> userConnectionPub;
 	private Flux<Data> dataChannel;
-	private Flux<Long> userChannel;
 
 	public ReactivePoller(RedisClient redisClient) {
 		this.redisClient = redisClient;
@@ -37,23 +34,20 @@ public class ReactivePoller {
 	void init() {
 		log.info("Connected to Redis");
 		this.dataConnection = redisClient.connect();
-		this.userConnection = redisClient.connect();
 		this.subscribeData();
-		this.subscribeUser();
 	}
 
 	@PreDestroy
 	void destroy() {
 		log.info("Destroy");
 		this.dataConnection.close();
+		this.dataConnectionPub.close();
 		this.dataConnectionSub.close();
-		this.userConnection.close();
-		this.userConnectionSub.close();
-		this.userConnectionPub.close();
 	}
 
 	private void subscribeData() {
 		this.dataConnectionSub = redisClient.connectPubSub();
+		this.dataConnectionPub = redisClient.connectPubSub();
 		RedisPubSubReactiveCommands<String, String> commandsPubSub = this.dataConnectionSub
 				.reactive();
 		commandsPubSub.subscribe("q1", "q2", "q3", "q4").subscribe();
@@ -62,48 +56,16 @@ public class ReactivePoller {
 		this.dataChannel.log("data-channel").subscribe();
 	}
 
-	private void subscribeUser() {
-		this.userConnectionSub = this.redisClient.connectPubSub();
-		this.userConnectionPub = this.redisClient.connectPubSub();
-		RedisPubSubReactiveCommands<String, String> commandsPubSub = this.userConnectionSub
-				.reactive();
-		commandsPubSub.subscribe("user").subscribe();
-		this.userChannel = commandsPubSub.observeChannels(FluxSink.OverflowStrategy.DROP)
-				.flatMap(this::handleUserMessage).share();
-		this.userChannel.log("user-channel").subscribe();
-
-	}
-
 	private Mono<Data> handleDataMessage(ChannelMessage<String, String> message) {
 		RedisReactiveCommands<String, String> commands = this.dataConnection.reactive();
 		Data data = new Data(message.getChannel(), message.getMessage());
 		return commands.get(data.key()).map(Long::valueOf).map(data::withCount);
 	}
 
-	private Mono<Long> handleUserMessage(ChannelMessage<String, String> message) {
-		RedisReactiveCommands<String, String> commands = this.userConnection.reactive();
-		return commands.get("user").map(Long::valueOf);
-	}
-
 	public Mono<Void> publishData(Data data) {
-		RedisPubSubReactiveCommands<String, String> commands = this.userConnectionPub
+		RedisPubSubReactiveCommands<String, String> commands = this.dataConnectionPub
 				.reactive();
 		return commands.publish(data.getQuestion(), data.getAnswer()).then();
-	}
-
-	public Mono<Void> publishUser(String message) {
-		RedisPubSubReactiveCommands<String, String> commands = this.userConnectionPub
-				.reactive();
-		switch (message) {
-		case "+":
-			return commands.incr("user").map(String::valueOf)
-					.flatMap(v -> commands.publish("user", v)).then();
-		case "-":
-			return commands.decr("user").map(String::valueOf)
-					.flatMap(v -> commands.publish("user", v)).then();
-		default:
-			return Mono.empty();
-		}
 	}
 
 	public Flux<Data> dataStream() {
@@ -119,9 +81,5 @@ public class ReactivePoller {
 
 	public Flux<Data> dataChannel() {
 		return this.dataChannel;
-	}
-
-	public Flux<Long> userChannel() {
-		return this.userChannel;
 	}
 }

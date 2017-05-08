@@ -29,11 +29,4 @@ public class PollerController {
 		Data data = new Data(q, a);
 		return poller.poll(data).flatMap(poller::publishData);
 	}
-
-	@GetMapping("user")
-	Flux<Long> user() {
-		return poller.userChannel()
-				.doOnSubscribe(s -> poller.publishUser("+").subscribe())
-				.doOnCancel(() -> poller.publishUser("-").subscribe());
-	}
 }
