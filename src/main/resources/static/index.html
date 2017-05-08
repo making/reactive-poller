@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reactive Poller</title>
+</head>
+<body>
+<div id="poll1"></div>
+<div id="poll2"></div>
+<div id="poll3"></div>
+<p>
+    Current Users: <span id="user"></span>
+</p>
+</body>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script>
+    var user = document.getElementById('user');
+    var userEventSource = new EventSource('/user');
+    userEventSource.onmessage = function (e) {
+        user.innerText = e.data;
+    };
+
+    var infos = [{
+        question: 'Q1',
+        answers: ['A1', 'A2', 'A3', 'A4']
+    }, {
+        question: 'Q2',
+        answers: ['A1', 'A2', 'A3', 'A4']
+    }, {
+        question: 'Q3',
+        answers: ['A1', 'A2', 'A3', 'A4']
+    }];
+
+    // Build the chart
+    var polls = [];
+
+    for (var i = 0; i < infos.length; i++) {
+        var info = infos[i];
+        var data = [];
+        for (var j = 0; j < info.answers.length; j++) {
+            var answer = info.answers[j];
+            data.push({name: answer, y: 0});
+        }
+        polls.push(Highcharts.chart('poll' + (i + 1), {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Results: ' + info.question
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'poll',
+                colorByPoint: true,
+                data: data
+            }]
+        }));
+    }
+
+    var pollEventSource = new EventSource('/data');
+    pollEventSource.onmessage = function (e) {
+        var d = JSON.parse(e.data);
+        var x = parseInt(d.question.charAt(1), 10) - 1;
+        var y = parseInt(d.answer.charAt(1), 10) - 1;
+        var poll = polls[x];
+        var data = poll.series[0].data;
+        data[y].y = parseInt(d.count, 10);
+        poll.series[0].setData(data);
+    };
+
+</script>
+
+</html>
