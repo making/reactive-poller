@@ -3,59 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <title>Reactive Poller</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.2/css/bulma.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <style>
         .center {
             text-align: center;
             margin-left: auto;
             margin-right: auto;
         }
+        li {
+            list-style-type: none;
+        }
+        button {
+            width: 120px;
+        }
     </style>
 </head>
 <body>
-<div class="center">
-    <form name="poll1">
-        Q1:
-        <input name="a" type="button" value="A1" onclick="poll('q1','a1');">
-        <input name="a" type="button" value="A2" onclick="poll('q1','a2');">
-        <input name="a" type="button" value="A3" onclick="poll('q1','a3');">
-        <input name="a" type="button" value="A4" onclick="poll('q1','a4');">
-    </form>
+<div class="content">
+    <div class="center">
+        <h1 style="font-size: 100px;">http://bit.ly/jdtd1d5</h1>
+        <h2>Q1: これまで"Reactive"というパラダイムに触れたことがありますか？</h2>
+        <form name="poll1">
+            <ul>
+                <li>
+                    <input name="a" class="button is-info is-medium" type="button" value="A1"
+                           onclick="poll('q1','a1');"> よく使っている
+                </li>
+                <li>
+                    <input name="a" class="button is-dark is-medium" type="button" value="A2"
+                           onclick="poll('q1','a2');"> 試したことがある
+                </li>
+                <li>
+                    <input name="a" class="button is-success is-medium" type="button" value="A3"
+                           onclick="poll('q1','a3');">
+                    試したことがない
+                </li>
+            </ul>
+        </form>
+    </div>
+    <div id="poll1"></div>
+    <hr>
+    <div class="center">
+        <h2>Q2: RxJavaあるいはReactorを使ったことがありますか？</h2>
+        <form name="poll2">
+            <ul>
+                <li><input name="a" class="button is-info is-medium" type="button" value="A1"
+                           onclick="poll('q2','a1');"> よく使っている
+                </li>
+                <li><input name="a" class="button is-dark is-medium" type="button" value="A2"
+                           onclick="poll('q2','a2');"> 試したことがある
+                </li>
+                <li><input name="a" class="button is-success is-medium" type="button" value="A3"
+                           onclick="poll('q2','a3');">
+                    試したことがない
+                </li>
+            </ul>
+        </form>
+    </div>
+    <div id="poll2"></div>
+    <hr>
+    <div class="center">
+        <h2>Q3: ReactiveなWebアプリケーションを触ったことがありますか？</h2>
+        <form name="poll3">
+            <ul>
+                <li><input name="a" class="button is-info is-medium" type="button" value="A1"
+                           onclick="poll('q3','a1');"> 触ったことがある
+                </li>
+                <li><input name="a" class="button is-dark is-medium" type="button" value="A2"
+                           onclick="poll('q3','a2');"> 触ったことがない
+                </li>
+                <li><input name="a" class="button is-success is-medium" type="button" value="A3"
+                           onclick="poll('q3','a3');">
+                    それは何ですか？
+                </li>
+            </ul>
+        </form>
+    </div>
+    <div id="poll3"></div>
 </div>
-<div id="poll1"></div>
-<hr>
-<div class="center">
-    <form name="poll2">
-        Q1:
-        <input name="a" type="button" value="A1" onclick="poll('q2','a1');">
-        <input name="a" type="button" value="A2" onclick="poll('q2','a2');">
-        <input name="a" type="button" value="A3" onclick="poll('q2','a3');">
-        <input name="a" type="button" value="A4" onclick="poll('q2','a4');">
-    </form>
-</div>
-<div id="poll2"></div>
-<hr>
-<div class="center">
-    <form name="poll3">
-        Q1:
-        <input name="a" type="button" value="A1" onclick="poll('q3','a1');">
-        <input name="a" type="button" value="A2" onclick="poll('q3','a2');">
-        <input name="a" type="button" value="A3" onclick="poll('q3','a3');">
-        <input name="a" type="button" value="A4" onclick="poll('q3','a4');">
-    </form>
-</div>
-<div id="poll3"></div>
 </body>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script>
     var infos = [{
         question: 'Q1',
-        answers: ['A1', 'A2', 'A3', 'A4']
+        answers: ['A1', 'A2', 'A3']
     }, {
         question: 'Q2',
-        answers: ['A1', 'A2', 'A3', 'A4']
+        answers: ['A1', 'A2', 'A3']
     }, {
         question: 'Q3',
-        answers: ['A1', 'A2', 'A3', 'A4']
+        answers: ['A1', 'A2', 'A3']
     }];
 
     // Build the chart
