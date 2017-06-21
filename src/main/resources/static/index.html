@@ -5,17 +5,19 @@
     <title>Reactive Poller</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.2/css/bulma.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.2/css/bulma.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <style>
         .center {
-            text-align: center;
             margin-left: auto;
             margin-right: auto;
+            width: 480px;
         }
+
         li {
             list-style-type: none;
         }
+
         button {
             width: 120px;
         }
@@ -23,23 +25,26 @@
 </head>
 <body>
 <div class="content">
+    <h1 style="font-size: 100px;text-align: center;">http://bit.ly/pfconsp</h1>
     <div class="center">
-        <h1 style="font-size: 100px;">http://bit.ly/jdtd1d5</h1>
-        <h2>Q1: これまで"Reactive"というパラダイムに触れたことがありますか？</h2>
+        <h2>Q1: 主に利用するプログラミング言語は？(サーバーサイド)</h2>
         <form name="poll1">
             <ul>
                 <li>
                     <input name="a" class="button is-info is-medium" type="button" value="A1"
-                           onclick="poll('q1','a1');"> よく使っている
+                           onclick="poll('q1','a1');"> Java
                 </li>
                 <li>
                     <input name="a" class="button is-dark is-medium" type="button" value="A2"
-                           onclick="poll('q1','a2');"> 試したことがある
+                           onclick="poll('q1','a2');"> PHP
                 </li>
                 <li>
                     <input name="a" class="button is-success is-medium" type="button" value="A3"
-                           onclick="poll('q1','a3');">
-                    試したことがない
+                           onclick="poll('q1','a3');"> Node.js
+                </li>
+                <li>
+                    <input name="a" class="button is-warning is-medium" type="button" value="A4"
+                           onclick="poll('q1','a4');"> Go
                 </li>
             </ul>
         </form>
@@ -47,18 +52,20 @@
     <div id="poll1"></div>
     <hr>
     <div class="center">
-        <h2>Q2: RxJavaあるいはReactorを使ったことがありますか？</h2>
+        <h2>Q2: Spring Bootを利用したことがありますか？</h2>
         <form name="poll2">
             <ul>
                 <li><input name="a" class="button is-info is-medium" type="button" value="A1"
-                           onclick="poll('q2','a1');"> よく使っている
+                           onclick="poll('q2','a1');"> プロダクション環境で使っている
                 </li>
                 <li><input name="a" class="button is-dark is-medium" type="button" value="A2"
-                           onclick="poll('q2','a2');"> 試したことがある
+                           onclick="poll('q2','a2');"> 現在のプロジェクトで利用中
                 </li>
                 <li><input name="a" class="button is-success is-medium" type="button" value="A3"
-                           onclick="poll('q2','a3');">
-                    試したことがない
+                           onclick="poll('q2','a3');"> 試したことがある
+                </li>
+                <li><input name="a" class="button is-warning is-medium" type="button" value="A4"
+                           onclick="poll('q2','a4');"> 試したことがない / 知らない
                 </li>
             </ul>
         </form>
@@ -66,36 +73,70 @@
     <div id="poll2"></div>
     <hr>
     <div class="center">
-        <h2>Q3: ReactiveなWebアプリケーションを触ったことがありますか？</h2>
+        <h2>Q3: Pivotal Cloud Foundryを利用したことがありますか？</h2>
         <form name="poll3">
             <ul>
                 <li><input name="a" class="button is-info is-medium" type="button" value="A1"
-                           onclick="poll('q3','a1');"> 触ったことがある
+                           onclick="poll('q3','a1');"> プロダクション環境で使っている
                 </li>
                 <li><input name="a" class="button is-dark is-medium" type="button" value="A2"
-                           onclick="poll('q3','a2');"> 触ったことがない
+                           onclick="poll('q3','a2');"> 現在のプロジェクトで利用中
                 </li>
                 <li><input name="a" class="button is-success is-medium" type="button" value="A3"
-                           onclick="poll('q3','a3');">
-                    それは何ですか？
+                           onclick="poll('q3','a3');"> 試したことがある
+                </li>
+                <li><input name="a" class="button is-warning is-medium" type="button" value="A4"
+                           onclick="poll('q3','a4');"> 試したことがない / 知らない
                 </li>
             </ul>
         </form>
     </div>
     <div id="poll3"></div>
+    <hr>
+    <div class="center">
+        <h2>プレゼント応募フォーム</h2>
+
+        <div class="field is-horizontal">
+            <form name="application">
+                <div class="field-body">
+                    <div class="field is-grouped">
+                        <p class="control is-expanded">
+                            <input class="input" name="name" placeholder="お名前" required>
+                        </p>
+                    </div>
+                    <div class="field">
+                        <p class="control is-expanded has-icons-right">
+                            <input class="input" type="email" name="email" placeholder="メールアドレス" required>
+                        </p>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-primary">
+                                応募
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <br/>
+        <p id="number" style="font-size: 60px;"></p>
+        <br>
+    </div>
 </div>
 </body>
 <script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
 <script>
     var infos = [{
         question: 'Q1',
-        answers: ['A1', 'A2', 'A3']
+        answers: ['A1', 'A2', 'A3', 'A4']
     }, {
         question: 'Q2',
-        answers: ['A1', 'A2', 'A3']
+        answers: ['A1', 'A2', 'A3', 'A4']
     }, {
         question: 'Q3',
-        answers: ['A1', 'A2', 'A3']
+        answers: ['A1', 'A2', 'A3', 'A4']
     }];
 
     // Build the chart
@@ -148,16 +189,35 @@
     };
 
     function poll(q, a) {
-        var r = new XMLHttpRequest();
-        r.open('POST', '/data/' + q + '/' + a, true);
-        r.onreadystatechange = function () {
-            if (r.readyState != 4 || r.status != 200) {
-                console.log(r.status, r.responseText);
-                return;
-            }
-        };
-        r.send();
+        axios.post('/data/' + q + '/' + a, {});
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var form = document.forms.application;
+        var button = form.querySelector('button');
+        form.onsubmit = function (evt) {
+            evt.preventDefault();
+            button.disabled = true;
+            var body = {
+                name: form.name.value,
+                email: form.email.value
+            };
+            axios
+                .post('/application', body)
+                .then(function (res) {
+                    var number = res.data;
+                    alert('応募完了! 抽選番号は' + number + 'です。');
+                    document.getElementById('number').innerHTML = '<strong>抽選番号: ' + number + '<strong>';
+                    form.name.disabled = true;
+                    form.email.disabled = true;
+                })
+                .catch(function (err) {
+                    alert(err.message);
+                    button.disabled = false;
+                });
+
+        };
+    });
 </script>
 
 </html>

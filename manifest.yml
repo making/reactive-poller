@@ -3,5 +3,6 @@ applications:
   path: target/reactive-poller-0.0.1-SNAPSHOT.jar
   services:
   - poller-redis
+  - lottery-db # sharing a db instance is bad way :P
   env:
     _JAVA_OPTIONS: -Duser.timezone=Asia/Tokyo -Duser.language=ja -Duser.country=JP -Djava.security.egd=file:/dev/./urandom -Dio.lettuce.core.epoll=false
