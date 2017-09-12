@@ -5,8 +5,8 @@
     <title>Reactive Poller</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.2/css/bulma.min.css"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.2/css/bulma.min.css">
     <style>
         .center {
             margin-left: auto;
@@ -25,26 +25,26 @@
 </head>
 <body>
 <div class="content">
-    <h1 style="font-size: 100px;text-align: center;">http://bit.ly/pfconsp</h1>
+    <h1 style="font-size: 100px;text-align: center;">http://bit.ly/cftokyo4</h1>
     <div class="center">
-        <h2>Q1: 主に利用するプログラミング言語は？(サーバーサイド)</h2>
+        <h2>Q1: How many times have you deployed Cloud Foundry?</h2>
         <form name="poll1">
             <ul>
                 <li>
                     <input name="a" class="button is-info is-medium" type="button" value="A1"
-                           onclick="poll('q1','a1');"> Java
+                           onclick="poll(this, 'q1','a1');"> 0
                 </li>
                 <li>
                     <input name="a" class="button is-dark is-medium" type="button" value="A2"
-                           onclick="poll('q1','a2');"> PHP
+                           onclick="poll(this, 'q1','a2');"> 1-5
                 </li>
                 <li>
                     <input name="a" class="button is-success is-medium" type="button" value="A3"
-                           onclick="poll('q1','a3');"> Node.js
+                           onclick="poll(this, 'q1','a3');"> 5-10
                 </li>
                 <li>
                     <input name="a" class="button is-warning is-medium" type="button" value="A4"
-                           onclick="poll('q1','a4');"> Go
+                           onclick="poll(this, 'q1','a4');"> 10+
                 </li>
             </ul>
         </form>
@@ -52,20 +52,20 @@
     <div id="poll1"></div>
     <hr>
     <div class="center">
-        <h2>Q2: Spring Bootを利用したことがありますか？</h2>
+        <h2>Q2: Which tool do you use to provision BOSH？ (multiple choices allowed)</h2>
         <form name="poll2">
             <ul>
                 <li><input name="a" class="button is-info is-medium" type="button" value="A1"
-                           onclick="poll('q2','a1');"> プロダクション環境で使っている
+                           onclick="poll(this, 'q2','a1');"> <a href="https://github.com/cloudfoundry/bosh-init">bosh-init</a>
                 </li>
                 <li><input name="a" class="button is-dark is-medium" type="button" value="A2"
-                           onclick="poll('q2','a2');"> 現在のプロジェクトで利用中
+                           onclick="poll(this, 'q2','a2');"> <a href="https://github.com/cloudfoundry/bosh-cli">BOSH CLI v2 (bosh create-env)</a>
                 </li>
                 <li><input name="a" class="button is-success is-medium" type="button" value="A3"
-                           onclick="poll('q2','a3');"> 試したことがある
+                           onclick="poll(this, 'q2','a3');"> <a href="https://github.com/cloudfoundry/bosh-bootloader">bosh-bootloader</a>
                 </li>
                 <li><input name="a" class="button is-warning is-medium" type="button" value="A4"
-                           onclick="poll('q2','a4');"> 試したことがない / 知らない
+                           onclick="poll(this, 'q2','a4');"> <a href="https://docs.pivotal.io/pivotalcf">Ops Manager (PCF)</a>
                 </li>
             </ul>
         </form>
@@ -73,56 +73,56 @@
     <div id="poll2"></div>
     <hr>
     <div class="center">
-        <h2>Q3: Pivotal Cloud Foundryを利用したことがありますか？</h2>
+        <h2>Q3: How do you deploy Cloud Foundry? (multiple choices allowed)</h2>
         <form name="poll3">
             <ul>
                 <li><input name="a" class="button is-info is-medium" type="button" value="A1"
-                           onclick="poll('q3','a1');"> プロダクション環境で使っている
+                           onclick="poll(this, 'q3','a1');"> <a href="https://github.com/cloudfoundry/cf-release">cf-release</a>
                 </li>
                 <li><input name="a" class="button is-dark is-medium" type="button" value="A2"
-                           onclick="poll('q3','a2');"> 現在のプロジェクトで利用中
+                           onclick="poll(this, 'q3','a2');"> <a href="https://github.com/cloudfoundry/cf-deployment">cf-deployment</a>
                 </li>
                 <li><input name="a" class="button is-success is-medium" type="button" value="A3"
-                           onclick="poll('q3','a3');"> 試したことがある
+                           onclick="poll(this, 'q3','a3');"> <a href="https://docs.pivotal.io/pivotalcf">Ops Manager (PCF)</a>
                 </li>
                 <li><input name="a" class="button is-warning is-medium" type="button" value="A4"
-                           onclick="poll('q3','a4');"> 試したことがない / 知らない
+                           onclick="poll(this, 'q3','a4');"> <a href="https://docs.pivotal.io/pcf-dev/index.html">cf dev start (PCF Dev)</a>
                 </li>
             </ul>
         </form>
     </div>
     <div id="poll3"></div>
     <hr>
-    <div class="center">
-        <h2>プレゼント応募フォーム</h2>
+    <!--<div class="center">-->
+        <!--<h2>プレゼント応募フォーム</h2>-->
 
-        <div class="field is-horizontal">
-            <form name="application">
-                <div class="field-body">
-                    <div class="field is-grouped">
-                        <p class="control is-expanded">
-                            <input class="input" name="name" placeholder="お名前" required>
-                        </p>
-                    </div>
-                    <div class="field">
-                        <p class="control is-expanded has-icons-right">
-                            <input class="input" type="email" name="email" placeholder="メールアドレス" required>
-                        </p>
-                    </div>
-                    <div class="field">
-                        <div class="control">
-                            <button class="button is-primary">
-                                応募
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <br/>
-        <p id="number" style="font-size: 60px;"></p>
-        <br>
-    </div>
+        <!--<div class="field is-horizontal">-->
+            <!--<form name="application">-->
+                <!--<div class="field-body">-->
+                    <!--<div class="field is-grouped">-->
+                        <!--<p class="control is-expanded">-->
+                            <!--<input class="input" name="name" placeholder="お名前" required>-->
+                        <!--</p>-->
+                    <!--</div>-->
+                    <!--<div class="field">-->
+                        <!--<p class="control is-expanded has-icons-right">-->
+                            <!--<input class="input" type="email" name="email" placeholder="メールアドレス" required>-->
+                        <!--</p>-->
+                    <!--</div>-->
+                    <!--<div class="field">-->
+                        <!--<div class="control">-->
+                            <!--<button class="button is-primary">-->
+                                <!--応募-->
+                            <!--</button>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</form>-->
+        <!--</div>-->
+        <!--<br/>-->
+        <!--<p id="number" style="font-size: 60px;"></p>-->
+        <!--<br>-->
+    <!--</div>-->
 </div>
 </body>
 <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -188,36 +188,44 @@
         poll.series[0].setData(data);
     };
 
-    function poll(q, a) {
+    function poll(btn, q, a) {
+        btn.disabled = true;
+        if (q === 'q1') {
+            // lock all ...
+            var btns = document.querySelectorAll("[name=poll1] input");
+            for (var i = 0; i < btns.length; i ++) {
+                btns[i].disabled = true;
+            }
+        }
         axios.post('/data/' + q + '/' + a, {});
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
-        var form = document.forms.application;
-        var button = form.querySelector('button');
-        form.onsubmit = function (evt) {
-            evt.preventDefault();
-            button.disabled = true;
-            var body = {
-                name: form.name.value,
-                email: form.email.value
-            };
-            axios
-                .post('/application', body)
-                .then(function (res) {
-                    var number = res.data;
-                    alert('応募完了! 抽選番号は' + number + 'です。');
-                    document.getElementById('number').innerHTML = '<strong>抽選番号: ' + number + '<strong>';
-                    form.name.disabled = true;
-                    form.email.disabled = true;
-                })
-                .catch(function (err) {
-                    alert(err.message);
-                    button.disabled = false;
-                });
-
-        };
-    });
+//    document.addEventListener('DOMContentLoaded', function () {
+//        var form = document.forms.application;
+//        var button = form.querySelector('button');
+//        form.onsubmit = function (evt) {
+//            evt.preventDefault();
+//            button.disabled = true;
+//            var body = {
+//                name: form.name.value,
+//                email: form.email.value
+//            };
+//            axios
+//                .post('/application', body)
+//                .then(function (res) {
+//                    var number = res.data;
+//                    alert('応募完了! 抽選番号は' + number + 'です。');
+//                    document.getElementById('number').innerHTML = '<strong>抽選番号: ' + number + '<strong>';
+//                    form.name.disabled = true;
+//                    form.email.disabled = true;
+//                })
+//                .catch(function (err) {
+//                    alert(err.message);
+//                    button.disabled = false;
+//                });
+//
+//        };
+//    });
 </script>
 
 </html>
